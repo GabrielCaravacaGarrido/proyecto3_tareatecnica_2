@@ -17,7 +17,7 @@ export class CategoryComponent {
   @Output() callModalAction: EventEmitter<ICategory> = new EventEmitter<ICategory>();
   @Output() callDeleteAction: EventEmitter<ICategory> = new EventEmitter<ICategory>();
 
-  userRole: string = 'USER'; // Rol por defecto
+  userRole: string = 'USER';
 
   constructor() {
     const userData = localStorage.getItem('auth_user');

@@ -27,6 +27,7 @@ export class BaseService<T> {
   }
 
   public add(data: {}): Observable<IResponse<T>> {
+    console.log(this.source, data);
     return this.http.post<IResponse<T>>(this.source, data);
   }
 

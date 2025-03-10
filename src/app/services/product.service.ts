@@ -10,7 +10,7 @@ import { AlertService } from './alert.service';
 export class ProductService extends BaseService<IProduct> {
   private productSignal = signal<IProduct[]>([]);
   private alertService: AlertService = inject(AlertService);
-  protected override source: string = 'product'; // Asegúrate de que la ruta sea "products"
+  protected override source: string = 'product';
   get product$() {
     return this.productSignal;
   }
@@ -22,12 +22,11 @@ export class ProductService extends BaseService<IProduct> {
 
   // Método para obtener todos los productos con paginación y parámetros de búsqueda
   getAll() {
-    // Aquí se usa findAllWithParams para enviar los parámetros de búsqueda como la página y el tamaño
     this.findAllWithParams(this.search).subscribe({
       next: (response: IResponse<IProduct[]>) => {
-        this.search = { ...this.search, ...response.meta };  // Se actualiza la paginación
+        this.search = { ...this.search, ...response.meta };
         this.totalItems = Array.from({ length: this.search.totalPages ? this.search.totalPages : 0 }, (_, i) => i + 1);
-        this.productSignal.set(response.data);  // Se guarda la lista de productos
+        this.productSignal.set(response.data);
         console.log('Products fetched', response.data);
       },
       error: (err: any) => {
@@ -41,7 +40,7 @@ export class ProductService extends BaseService<IProduct> {
     this.add(item).subscribe({
       next: (response: IResponse<IProduct>) => {
         this.alertService.displayAlert('success', response.message, 'center', 'top', ['success-snackbar']);
-        this.getAll();  // Recarga la lista de productos
+        this.getAll();
       },
       error: (err: any) => {
         this.alertService.displayAlert('error', 'An error occurred adding product', 'center', 'top', ['error-snackbar']);
@@ -55,7 +54,7 @@ export class ProductService extends BaseService<IProduct> {
     this.editCustomSource('', item).subscribe({
       next: (response: IResponse<IProduct>) => {
         this.alertService.displayAlert('success', response.message, 'center', 'top', ['success-snackbar']);
-        this.getAll();  // Recarga la lista de productos
+        this.getAll();
       },
       error: (err: any) => {
         this.alertService.displayAlert('error', 'An error occurred updating the product', 'center', 'top', ['error-snackbar']);
@@ -69,7 +68,7 @@ export class ProductService extends BaseService<IProduct> {
     this.del(item.id).subscribe({
       next: (response: IResponse<IProduct>) => {
         this.alertService.displayAlert('success', response.message, 'center', 'top', ['success-snackbar']);
-        this.getAll();  // Recarga la lista de productos
+        this.getAll();
       },
       error: (err: any) => {
         this.alertService.displayAlert('error', 'An error occurred deleting the product', 'center', 'top', ['error-snackbar']);

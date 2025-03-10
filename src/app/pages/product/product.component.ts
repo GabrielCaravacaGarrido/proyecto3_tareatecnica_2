@@ -36,7 +36,7 @@ export class ProductPageComponent {
     description: ['', Validators.required],
     price: ['', Validators.required],
     stock: ['', Validators.required],
-    category_id: [''],
+    category_id: ['', Validators.required],
     
   }
 )
@@ -58,6 +58,7 @@ export class ProductPageComponent {
   }
 
   saveProduct(item: IProduct) {
+    console.log("Producto a guardar:" + JSON.stringify(item));
     this.productService.save(item);
     this.modalService.closeAll();
   }

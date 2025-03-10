@@ -26,11 +26,14 @@ export class ProductFormComponent {
       description: this.form.controls['description'].value,
       price: this.form.controls['price'].value,
       stock: this.form.controls['stock'].value,
-    }
+    };
+
+    (item as any).category = { id: this.form.controls['category_id'].value };
+    
     if(this.form.controls['id'].value) {
       console.log(this.form.controls['category_id'].value);
       item.id = this.form.controls['id'].value;
-      (item as any).category = { id: this.form.controls['category_id'].value };
+      
       //item.category_id = this.form.controls['category_id'].value;
     }
     console.log(item);
